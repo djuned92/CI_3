@@ -34,13 +34,13 @@
             <form action="#" method="post" id="login_form">
               <h1>Login Form</h1>
               <div>
-                <input type="text" name="username" class="form-control" placeholder="Username"/>
+                <input type="text" name="username" class="form-control" placeholder="Username" required />
               </div>
               <div>
-                <input type="password" name="password" class="form-control" placeholder="Password"/>
+                <input type="password" name="password" class="form-control" placeholder="Password" required />
               </div>
               <div>
-                <button class="btn btn-default" id="login">Log in</button>
+                <button type="submit" class="btn btn-default" id="login">Log in</button>
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
 
@@ -65,19 +65,20 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form>
+            <form action="#" method="POST" id="register_form">
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" name="username" class="form-control" placeholder="Username" required/>
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" />
+                <input type="password" name="password" id="password" class="form-control" placeholder="Password" required/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password" required/>
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">Submit</a>
+                <button type="submit" class="btn btn-default" id="register_submit">Submit</button>
+                <!-- <a class="btn btn-default submit" href="#" id="register_submit">Submit</a> -->
               </div>
 
               <div class="clearfix"></div>
@@ -102,28 +103,74 @@
     </div>
     <!-- jQuery -->
     <script src="<?=base_url('assets/vendors/jquery/dist/jquery.min.js')?>"></script>
+    <!-- Bootstrap -->
+    <script src="<?=base_url('assets/vendors/bootstrap/dist/js/bootstrap.min.js')?>"></script>
+    <!-- validator -->
+    <script src="<?=base_url('assets/vendors/jquery-validation/jquery.validate.min.js')?>"></script>    
+    <!-- FastClick -->
+    <script src="<?=base_url('assets/vendors/fastclick/lib/fastclick.js')?>"></script>
+    <!-- NProgress -->
+    <script src="<?=base_url('assets/vendors/nprogress/nprogress.js')?>"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="<?=base_url('assets/js/custom.min.js')?>"></script>
     <script>
       $(document).ready(function(){
-        var form = $('#login_form');
-        $('#login').click(function(e) {
-          e.preventDefault();
-          $.ajax({
-            url: "<?=base_url('auth/do_login')?>",
-            type: 'post',
-            dataType: 'json',
-            data: form.serializeArray(),
-            beforeSend: function() {
+        $('#login_form').validate({
+          submitHandler:function(form) {
+            $('#login').click(function() {
+              $.ajax({
+                url: "<?=base_url('auth/do_login')?>",
+                type: 'post',
+                dataType: 'json',
+                data: $('#login_form').serializeArray(),
+                beforeSend: function() {}, 
+                success: function(data) {
+                  $("#password").val('');
+                  if(data.error == true) {
+                    alert(data.message);
+                  } else {
+                    window.location.href = "<?=base_url('home')?>";
+                  } 
+                }
 
-            }, 
-            success: function(data) {
-              if(data.error == true) {
-                alert(data.message);
-              } else {
-                window.location.href = "<?=base_url('home')?>";
-              } 
+              });
+            });
+          }
+        });
+
+        $('#register_form').validate({
+          rules: {
+            username: {
+              required: true,
+            },
+            password: {
+              required: true,
+              minlength: 8,
+              maxlength: 12,
+            },
+            confirm_password: {
+              minlength: 8,
+              maxlength: 12,
+              equalTo: "#password",
             }
 
-          });
+          },
+          submitHandler:function(form) {
+            $('#register_submit').click(function() {
+              $.ajax({
+                url: "<?=base_url('auth/add')?>",
+                type: 'post',
+                dataType: 'json',
+                data: $('#register_form').serializeArray(),
+                beforeSend: function() {}, 
+                success: function(data) {
+                  $('#register_form')[0].reset();
+                  alert(data.message);
+                }
+
+              });
+            });
+          }
         });
       }); 
     </script>

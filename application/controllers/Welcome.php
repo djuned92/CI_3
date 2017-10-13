@@ -22,4 +22,15 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+
+	public function test_encrypt()
+	{
+		$this->load->library('encrypt');
+
+		$bangke = 'bangke';
+		$x = $this->encrypt->encode($bangke);
+		$encrypt = 'mKdQrHNi4rKurhWRtDV1qTEUZUWJzH3i43MN2lZ2dNBoV8UkN+j/mUE7UpTBi008E6mmRpYwfZEirzx9gB+X1g==';
+		$y = $this->encrypt->decode($encrypt);
+		return var_dump($x);
+	}
 }

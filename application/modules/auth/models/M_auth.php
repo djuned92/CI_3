@@ -16,6 +16,11 @@ class M_auth extends CI_Model {
 
 	}
 	
+	public function add($table, $data) 
+	{
+		return $this->db->insert($table, $data);
+	}
+
 	public function update($table, $data, $id)
 	{
 		return $this->db->update($table, $data, $id);

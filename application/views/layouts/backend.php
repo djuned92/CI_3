@@ -53,7 +53,8 @@
     <script src="<?=base_url('assets/vendors/fastclick/lib/fastclick.js')?>"></script>
     <!-- NProgress -->
     <script src="<?=base_url('assets/vendors/nprogress/nprogress.js')?>"></script>
-    
+    <!-- validator -->
+    <script src="<?=base_url('assets/vendors/jquery-validation/jquery.validate.min.js')?>"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?=base_url('assets/js/custom.min.js')?>"></script>
     <?=$template['metadata']?>

@@ -7,7 +7,7 @@ class Home extends MX_Controller {
 	{
 		parent::__construct();
 		if (!isset($this->session->logged_in)) {
-			redirect('auth/index');
+			redirect('auth');
 		}
 	}
 
