@@ -31,9 +31,8 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action="<?=base_url('auth/do_login')?>" method="post">
+            <form action="#" method="post" id="login_form">
               <h1>Login Form</h1>
-              <?=validation_errors()?>
               <div>
                 <input type="text" name="username" class="form-control" placeholder="Username"/>
               </div>
@@ -41,7 +40,7 @@
                 <input type="password" name="password" class="form-control" placeholder="Password"/>
               </div>
               <div>
-                <button type="submit" class="btn btn-default submit">Log in</button>
+                <button class="btn btn-default" id="login">Log in</button>
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
 
@@ -101,5 +100,32 @@
         </div>
       </div>
     </div>
+    <!-- jQuery -->
+    <script src="<?=base_url('assets/vendors/jquery/dist/jquery.min.js')?>"></script>
+    <script>
+      $(document).ready(function(){
+        var form = $('#login_form');
+        $('#login').click(function(e) {
+          e.preventDefault();
+          $.ajax({
+            url: "<?=base_url('auth/do_login')?>",
+            type: 'post',
+            dataType: 'json',
+            data: form.serializeArray(),
+            beforeSend: function() {
+
+            }, 
+            success: function(data) {
+              if(data.error == true) {
+                alert(data.message);
+              } else {
+                window.location.href = "<?=base_url('home')?>";
+              } 
+            }
+
+          });
+        });
+      }); 
+    </script>
   </body>
 </html>

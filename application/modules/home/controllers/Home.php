@@ -3,6 +3,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends MX_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		if (!isset($this->session->logged_in)) {
+			redirect('auth/index');
+		}
+	}
+
 	public function index()
 	{
 		$this->template->set_layout('backend')
