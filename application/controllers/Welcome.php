@@ -23,14 +23,9 @@ class Welcome extends CI_Controller {
 		$this->load->view('welcome_message');
 	}
 
-	public function test_encrypt()
+	public function _404()
 	{
-		$this->load->library('encrypt');
-
-		$bangke = 'bangke';
-		$x = $this->encrypt->encode($bangke);
-		$encrypt = 'mKdQrHNi4rKurhWRtDV1qTEUZUWJzH3i43MN2lZ2dNBoV8UkN+j/mUE7UpTBi008E6mmRpYwfZEirzx9gB+X1g==';
-		$y = $this->encrypt->decode($encrypt);
-		return var_dump($x);
+		$this->output->set_status_header('404');
+        $this->load->view('errors/error_404');
 	}
 }

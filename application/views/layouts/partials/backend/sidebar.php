@@ -26,6 +26,7 @@
       <div class="menu_section">
         <h3>General</h3>
         <ul class="nav side-menu">
+          <li><a href="<?=base_url('home')?>"><i class="fa fa-home"></i> Home </a></li>
           <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="index.html">Dashboard</a></li>
@@ -36,6 +37,12 @@
           <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
               <li><a href="fixed_sidebar.html">Fixed Sidebar</a></li>
+              <li><a href="fixed_footer.html">Fixed Footer</a></li>
+            </ul>
+          </li>
+          <li><a><i class="fa fa-clone"></i>Master <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li><a href="<?=base_url('user')?>">User</a></li>
               <li><a href="fixed_footer.html">Fixed Footer</a></li>
             </ul>
           </li>
@@ -73,7 +80,7 @@
           </li>
           <li><a><i class="fa fa-gear"></i> Settings <span class="fa fa-chevron-down"></span></a>
             <ul class="nav child_menu">
-                <li><a href="#level1_1">Menu</a>
+                <li><a href="<?=base_url('menu')?>">Menu</a>
                 <li><a>Level One<span class="fa fa-chevron-down"></span></a>
                   <ul class="nav child_menu">
                     <li class="sub_menu"><a href="level2.html">Level Two</a>

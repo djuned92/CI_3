@@ -34,10 +34,10 @@
             <form action="#" method="post" id="login_form">
               <h1>Login Form</h1>
               <div>
-                <input type="text" name="username" class="form-control" placeholder="Username" required />
+                <input type="text" name="username" class="form-control" placeholder="Username"/>
               </div>
               <div>
-                <input type="password" name="password" class="form-control" placeholder="Password" required />
+                <input type="password" name="password" class="form-control" placeholder="Password"/>
               </div>
               <div>
                 <button type="submit" class="btn btn-default" id="login">Log in</button>
@@ -116,9 +116,16 @@
     <script>
       $(document).ready(function(){
         $('#login_form').validate({
+          rules: {
+            username: {
+              required: true
+            }, 
+            password: {
+              required: true
+            }
+          },
           submitHandler:function(form) {
-            $('#login').click(function() {
-              $.ajax({
+            $.ajax({
                 url: "<?=base_url('auth/do_login')?>",
                 type: 'post',
                 dataType: 'json',
@@ -131,9 +138,8 @@
                   } else {
                     window.location.href = "<?=base_url('home')?>";
                   } 
-                }
+              }
 
-              });
             });
           }
         });
@@ -156,19 +162,17 @@
 
           },
           submitHandler:function(form) {
-            $('#register_submit').click(function() {
-              $.ajax({
-                url: "<?=base_url('auth/add')?>",
-                type: 'post',
-                dataType: 'json',
-                data: $('#register_form').serializeArray(),
-                beforeSend: function() {}, 
-                success: function(data) {
-                  $('#register_form')[0].reset();
-                  alert(data.message);
-                }
+            $.ajax({
+              url: "<?=base_url('auth/add')?>",
+              type: 'post',
+              dataType: 'json',
+              data: $('#register_form').serializeArray(),
+              beforeSend: function() {}, 
+              success: function(data) {
+                $('#register_form')[0].reset();
+                alert(data.message);
+              }
 
-              });
             });
           }
         });

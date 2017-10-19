@@ -5,7 +5,9 @@ class Menu extends MX_Controller {
 
 	public function index()
 	{
-		
+		$this->template->set_layout('backend')
+					->title('Menu - Gentella')
+					->build('v_menu');
 	}
 
 }

@@ -1,6 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -31,9 +29,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="text-center text-center">
               <h1 class="error-number">404</h1>
               <h2>Sorry but we couldn't find this page</h2>
-              <p>This page you are looking for does not exist
+              <p>This page you are looking for does not exist <a href="#">Report this?</a>
               </p>
-              <h4><a href="<?=base_url('home')?>"><i class="fa fa-home"></i> Back to home ...</a></h4>
               <!-- 
               <div class="mid_center">
                 <h3>Search</h3>

@@ -14,7 +14,7 @@ class Home extends MX_Controller {
 	public function index()
 	{
 		$this->template->set_layout('backend')
-						->title('Home - Welcome Home')
+						->title('Home - Gentella')
 						->build('v_home');
 	}
 

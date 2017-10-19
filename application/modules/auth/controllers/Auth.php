@@ -39,14 +39,13 @@ class Auth extends MX_Controller {
 				'role'		=> 1
 			];
 			$this->auth->add('users',$data);
-			
 			$result['error']	= FALSE;
 			$result['message']	= 'Registrasi berhasil';
 		
 			echo json_encode($result);
 		}
 	}
-
+	
 	public function do_login()
 	{
 		$this->form_validation->set_rules('username', 'Username', 'trim|required');
@@ -58,19 +57,20 @@ class Auth extends MX_Controller {
 		} else {
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
-			
-			// update last login
 			$user = $this->auth->check_login($username);
-			$data['last_login'] = date('Y-m-d H:i:s');
-			(isset($user['id'])) ? $this->auth->update('users', $data, array('id'=> $user['id'])) : '';
 			
 			if(!empty($user)) {
 				if(password_verify($password, $user['password'])) {
+					// set session
 					$sess_data = [
 						'logged_in' => TRUE,
 						'username'	=> $user['username'],
 					];
 					$this->session->set_userdata($sess_data);
+
+					// update last login
+					$data['last_login'] = date('Y-m-d H:i:s');
+					(isset($user['id'])) ? $this->auth->update('users', $data, array('id'=> $user['id'])) : '';
 
 					$result['error'] = FALSE;
 				} else {
