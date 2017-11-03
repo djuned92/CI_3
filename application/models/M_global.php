@@ -7,7 +7,9 @@ class M_global extends CI_Model {
 	 *
 	 * create data 
 	 * change true for get last id
-	 * ex : $this->m_global->store('table', $data, true)
+	 * @param $data = array()
+	 * ex for create : $this->m_global->store('table', $data)
+	 * ex for last_id : $this->m_global->store('table', $data, true)
 	 */
 	public function store($table, $data, $last_id = FALSE) 
 	{
@@ -20,6 +22,7 @@ class M_global extends CI_Model {
 	 *
 	 * update specified data
 	 * @param int $id
+	 * ex : $this->m_global->update('table', $data, array('id'=> $id))
 	 */
 	public function update($table, $data, $id)
 	{
@@ -30,6 +33,7 @@ class M_global extends CI_Model {
 	 *
 	 * delete specified data
 	 * @param int $id
+	 * ex : $this->m_global->destroy('table', array('id'=> $id))
 	 */
 	public function destroy($table, $id)
 	{
@@ -40,17 +44,27 @@ class M_global extends CI_Model {
 	 *
 	 * get data
 	 * @param
+	 * ex : $this->m_global->fetch('table',NULL, array('id'=> DESC))
 	 */
-	public function get($table, $where = NULL, $order_by = NULL, $join = NULL, $cond = NULL)
+	public function fetch($table, $select = NULL, $join = NULL, $where = NULL, $order_by = NULL)
 	{
-		if($where !== NULL)
+		if($select !== NULL) {
+			$this->db->select($select);
+		}
+
+		if($join !== NULL) {
+			foreach ($join as $key => $value) {
+				$this->db->join($key, $value);
+			}		
+		}
+
+		if($where !== NULL) {
 			$this->db->where($where);
+		}
 
-		if($order_by !== NULL)
+		if($order_by !== NULL) {
 			$this->db->order_by($order_by);
-
-		if($join !== NULL AND $cond !== NULL)
-			$this->db->join($join, $cond);
+		}
 
 		return $this->db->get($table);
 	}
